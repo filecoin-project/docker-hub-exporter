@@ -2,10 +2,6 @@
 
 Exposes metrics of container pulls and stars from the Docker Hub API, to a Prometheus compatible endpoint. The exporter is capable of pulling down stats for individual images, or for orgs or users from DockerHub. This is based on the un-documented V2 Docker Hub API.
 
-```
-!!! This repository is now deprecated, feel free to fork !!!
-```
-
 ## Configuration
 
 The image is setup to take parameters from environment variables or flags:
@@ -28,13 +24,13 @@ Below is a list of the available flags. You can also find this list by using the
 
 Run manually from Docker Hub:
 ```
-docker run -d --restart=always -p 9170:9170 infinityworks/docker-hub-exporter -listen-address=:9170 -images="infinityworks/ranch-eye,infinityworks/prom-conf" -organisations="super6awspoc"
+docker run -d --restart=always -p 9170:9170 filecoin/docker-hub-exporter -listen-address=:9170
 ```
 
 Build a docker image:
 ```
 docker build -t <image-name> .
-docker run -d --restart=always -p 9170:9170 <image-name> -listen-address=:9170 -images="infinityworks/ranch-eye,infinityworks/prom-conf" -organisations="super6awspoc"
+docker run -d --restart=always -p 9170:9170 <image-name> -listen-address=:9170 -images="filecoin/lotus,filecoin/docker-hub-exporter" -organisations="filecoin"
 ```
 
 ## Known Issues
@@ -46,6 +42,3 @@ that has also been passed into the application then Prometheus will error during
 
 Metrics will be made available on port 8080 by default
 An example of these metrics can be found in the `METRICS.md` markdown file in the root of this repository
-
-## Metadata
-[![](https://images.microbadger.com/badges/image/infinityworks/docker-hub-exporter.svg)](http://microbadger.com/images/infinityworks/docker-hub-exporter "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/version/infinityworks/docker-hub-exporter.svg)](http://microbadger.com/images/infinityworks/docker-hub-exporter "Get your own version badge on microbadger.com")
