@@ -1,4 +1,4 @@
-FROM golang:1.15.1-alpine as builder
+FROM golang:1.18.1-alpine as builder
 
 COPY ./ /go/src/github.com/filecoin-project/docker-hub-exporter/
 
@@ -9,7 +9,7 @@ RUN apk --update add ca-certificates \
 
 ENV CGO_ENABLED 0
 
-RUN go get \
+RUN go mod tidy \
  && go test ./... \
  && GOOS=linux go build -o exporter .
 
