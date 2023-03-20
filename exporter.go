@@ -3,7 +3,7 @@ package docker_hub_exporter
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 	"strings"
@@ -68,11 +68,11 @@ type ImageResult struct {
 // New creates a new Exporter and returns it
 func New(organisations, images []string, connectionRetries int, opts ...Option) *Exporter {
 	e := &Exporter{
-		timeout:       	   time.Second * 5,
+		timeout:           time.Second * 5,
 		baseURL:           "https://hub.docker.com/v2/repositories/",
 		organisations:     organisations,
 		images:            images,
-		logger:            log.New(ioutil.Discard, "docker_hub_exporter: ", log.LstdFlags),
+		logger:            log.New(io.Discard, "docker_hub_exporter: ", log.LstdFlags),
 		connectionRetries: connectionRetries,
 	}
 
@@ -237,7 +237,7 @@ func (e Exporter) getResponse(url string) ([]byte, error) {
 	}
 
 	// Read the body to a byte array so it can be used elsewhere
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 
 	defer resp.Body.Close()
 
@@ -250,7 +250,7 @@ func (e Exporter) getResponse(url string) ([]byte, error) {
 
 // getHTTPResponse handles the http client creation, token setting and returns the *http.response
 func (e Exporter) getHTTPResponse(url string) (*http.Response, error) {
-	
+
 	client := &http.Client{
 		Timeout: e.timeout,
 	}
