@@ -5,9 +5,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"time"
-	"strconv"
 
 	"fmt"
 
@@ -28,7 +28,7 @@ func main() {
 
 	var organisations []string
 	var images []string
-	
+
 	envBind := os.Getenv("BIND_PORT")
 	envOrgs := os.Getenv("ORGS")
 	envImages := os.Getenv("IMAGES")
@@ -74,7 +74,7 @@ func main() {
 		images = append(images, strings.Split(envImages, ",")...)
 	}
 
-	if strings.HasPrefix(*listenAddress, ":") != true {
+	if !strings.HasPrefix(*listenAddress, ":") {
 		*listenAddress = fmt.Sprintf(":%s", *listenAddress)
 	}
 
