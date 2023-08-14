@@ -190,7 +190,7 @@ func (e Exporter) getImageMetrics(url string) (ImageResult, error) {
 
 	err = json.Unmarshal(body, &imageResult)
 	if err != nil {
-		return ImageResult{}, fmt.Errorf("Error unmarshalling response: %v", err)
+		return ImageResult{}, fmt.Errorf("error unmarshalling response: %v", err)
 	}
 
 	return imageResult, nil
@@ -206,11 +206,11 @@ func (e Exporter) getOrgMetrics(url string) ([]OrganisationResult, error) {
 
 	err = json.Unmarshal(body, &orgResult)
 	if err != nil {
-		return []OrganisationResult{}, fmt.Errorf("Error unmarshalling response: %v", err)
+		return []OrganisationResult{}, fmt.Errorf("error unmarshalling response: %v", err)
 	}
 
 	if orgResult.Count == 0 || len(orgResult.Results) == 0 {
-		return []OrganisationResult{}, fmt.Errorf("No images found for url: %s", url)
+		return []OrganisationResult{}, fmt.Errorf("no images found for url: %s", url)
 	}
 
 	if orgResult.Next != "" {
@@ -233,7 +233,7 @@ func (e Exporter) getResponse(url string) ([]byte, error) {
 	resp, err := e.getHTTPResponse(url) // do this earlier
 
 	if err != nil {
-		return nil, fmt.Errorf("Error converting body to byte array: %v", err)
+		return nil, fmt.Errorf("error converting body to byte array: %v", err)
 	}
 
 	// Read the body to a byte array so it can be used elsewhere
@@ -242,7 +242,7 @@ func (e Exporter) getResponse(url string) ([]byte, error) {
 	defer resp.Body.Close()
 
 	if err != nil {
-		return nil, fmt.Errorf("Error converting body to byte array: %v", err)
+		return nil, fmt.Errorf("error converting body to byte array: %v", err)
 	}
 
 	return body, nil
@@ -258,7 +258,7 @@ func (e Exporter) getHTTPResponse(url string) (*http.Response, error) {
 	req, err := http.NewRequest("GET", url, nil)
 
 	if err != nil {
-		return nil, fmt.Errorf("Failed to create http request: %v", err)
+		return nil, fmt.Errorf("failed to create http request: %v", err)
 	}
 
 	var retries = e.connectionRetries
