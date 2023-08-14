@@ -74,7 +74,7 @@ func main() {
 		images = append(images, strings.Split(envImages, ",")...)
 	}
 
-	if strings.HasPrefix(*listenAddress, ":") != true {
+	if !strings.HasPrefix(*listenAddress, ":") {
 		*listenAddress = fmt.Sprintf(":%s", *listenAddress)
 	}
 
