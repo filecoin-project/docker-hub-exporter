@@ -1,6 +1,6 @@
 module github.com/filecoin-project/docker-hub-exporter
 
-go 1.23
+go 1.24
 
 require github.com/prometheus/client_golang v1.13.0
 
